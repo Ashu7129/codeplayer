@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Code Player</title>
+    <link rel="stylesheet" href="style.css?version=2">
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/base/jquery-ui.css"
+        type="text/css" media="all">
+    <script src="jquery.min.js"></script>
+</head>
+
+<body>
+    <div id="topbar">
+        <div id="logo">Code Player</div>
+        <div id="buttoncontainer">
+            <div id="html" class="togglebutton active">HTML</div>
+            <div id="css" class="togglebutton">CSS</div>
+            <div id="javascript" class="togglebutton">Javascript</div>
+            <div id="output" class="togglebutton active">Output</div>
+        </div>
+        <button id="helpbutton" onclick="help()">?</button>
+    </div>
+    <div id="helpsection" class="hidden">
+        <h2>Here are some pre-written code</h2>
+        <hr>
+        <p> <b>Html body part : </b> &lt;p id = "para"&gt;This is some text inside p&lt;/p&gt; </p>
+        <p> <b>CSS part : </b> p{color:green; font-size:25px}</p>
+        <p><b>Javascript part : </b> document.getElementById("para").innerHTML = "Hello world"</p>
+    </div>
+    <div id="bodycontainer">
+        <textarea id="htmlpanel" class="panel" placeholder="HTML body Code"></textarea>
+        <textarea id="csspanel" class="panel hidden" placeholder="CSS Code"></textarea>
+        <textarea id="javascriptpanel" class="panel hidden" placeholder="Javascript Code"></textarea>
+        <iframe id="outputpanel" class="panel"></iframe>
+    </div>
+    <script>
+        var divider = 2;
+
+
+        $(".panel").width(($("#bodycontainer").width() / divider) - 15);
+        $(".panel").height($("#bodycontainer").height() - 5);
+        
+
+        $(".togglebutton").click(function () {
+            $(this).toggleClass("active");
+            var panelId = $(this).attr("id") + "panel";
+            $("#" + panelId).toggleClass("hidden");
+
+
+            if ($("#" + panelId).attr("class") == "panel hidden") {
+                divider -= 1;
+            }
+            else {
+                divider += 1;
+            }
+            $(".panel").width(($("#bodycontainer").width() / divider) - 10);
+        });
+
+        // $("#outputpanel").width($("#bodycontainer").width()-$("#htmlpanel").width()-$("#csspanel").width()-$("#javascriptpanel").width());
+
+
+
+        $(".panel").on("change keyup paste", function () {
+            $("#outputpanel").contents().find("html").html("<html><head><style type='text/css'>" + $("#csspanel").val() + "</style></head><body>" + $("#htmlpanel").val() + "</body></html>");
+            document.getElementById("outputpanel").contentWindow.eval($("#javascriptpanel").val());
+        });
+
+        function help() {
+            $("#helpsection").toggle();
+        }
+    </script>
+
+</body>
+
+</html>
