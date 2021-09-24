@@ -36,13 +36,14 @@
         <textarea id="javascriptpanel" class="panel hidden" placeholder="Javascript Code"></textarea>
         <iframe id="outputpanel" class="panel"></iframe>
     </div>
+
     <script>
         var divider = 2;
 
 
         $(".panel").width(($("#bodycontainer").width() / divider) - 15);
         $(".panel").height($("#bodycontainer").height() - 5);
-        
+    
 
         $(".togglebutton").click(function () {
             $(this).toggleClass("active");

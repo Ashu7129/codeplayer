@@ -88,3 +88,7 @@ textarea{
 #helpbutton:hover{
     cursor: pointer;
 }
+
+#outputpanel{
+    resize: horizontal;
+}
